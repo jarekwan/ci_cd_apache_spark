@@ -61,3 +61,16 @@ jobs:
           --cov=src/us_accidents_etl
           --cov-report=term-missing
           --cov-report=xml
+      
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v6
+        with:
+          name: coverage-xml
+          path: coverage.xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage.xml
+          fail_ci_if_error: false
